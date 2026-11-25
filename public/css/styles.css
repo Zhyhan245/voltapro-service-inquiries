@@ -1,0 +1,93 @@
+:root {
+  --vp-primary: #0f4c5c;
+  --vp-primary-dark: #09323d;
+  --vp-accent: #e36414;
+  --vp-bg-soft: #f5f7f9;
+}
+
+body {
+  background-color: var(--vp-bg-soft);
+  color: #1f2933;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+main {
+  flex: 1;
+}
+
+.navbar-voltapro {
+  background-color: var(--vp-primary-dark);
+}
+
+.hero-banner {
+  background: linear-gradient(135deg, var(--vp-primary-dark) 0%, var(--vp-primary) 100%);
+  color: #ffffff;
+}
+
+.btn-accent {
+  background-color: var(--vp-accent);
+  border-color: var(--vp-accent);
+  color: #ffffff;
+  font-weight: 600;
+}
+
+.btn-accent:hover,
+.btn-accent:focus {
+  background-color: #c5530d;
+  border-color: #c5530d;
+  color: #ffffff;
+}
+
+/* Видимий фокус для клавіатурної навігації (WCAG 2.2) */
+a:focus-visible,
+button:focus-visible,
+input:focus-visible,
+select:focus-visible,
+textarea:focus-visible {
+  outline: 3px solid #ffbf47 !important;
+  outline-offset: 2px;
+}
+
+.service-card {
+  transition: transform 0.15s ease, box-shadow 0.15s ease;
+  border: 1px solid #dee2e6;
+}
+
+.service-card:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 0.5rem 1rem rgba(15, 76, 92, 0.1);
+}
+
+.note-internal {
+  background-color: #fff8e6;
+  border-left: 4px solid #d97706;
+}
+
+.note-public {
+  background-color: #eef6f8;
+  border-left: 4px solid var(--vp-primary);
+}
+
+.skip-link {
+  position: absolute;
+  left: -9999px;
+  top: 0;
+  z-index: 1050;
+  background: #ffbf47;
+  color: #000000;
+  padding: 0.5rem 1rem;
+  font-weight: 600;
+}
+
+.skip-link:focus {
+  left: 0.5rem;
+  top: 0.5rem;
+}
+
+@media (max-width: 576px) {
+  .display-5 {
+    font-size: 1.75rem;
+  }
+}

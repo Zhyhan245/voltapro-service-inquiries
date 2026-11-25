@@ -1,0 +1,214 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>ВольтаПро Сервіс — Інженерні рішення та керування зверненнями</title>
+  <link rel="stylesheet" href="/vendor/bootstrap/css/bootstrap.min.css">
+  <link rel="stylesheet" href="/css/styles.css">
+</head>
+<body>
+  <a class="skip-link" href="#main-content">Перейти до основного вмісту</a>
+
+  <header>
+    <nav class="navbar navbar-expand-lg navbar-dark navbar-voltapro" aria-label="Головна навігація">
+      <div class="container">
+        <a class="navbar-brand fw-bold" href="/">ВольтаПро Сервіс</a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#mainNav"
+          aria-controls="mainNav" aria-expanded="false" aria-label="Відкрити меню">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="mainNav">
+          <ul class="navbar-nav ms-auto gap-lg-2">
+            <li class="nav-item"><a class="nav-link active" aria-current="page" href="/">Послуги та звернення</a></li>
+            <li class="nav-item"><a class="nav-link" href="/status">Перевірити заявку</a></li>
+            <li class="nav-item"><a class="nav-link" href="/manager">Кабінет менеджера</a></li>
+          </ul>
+        </div>
+      </div>
+    </nav>
+  </header>
+
+  <section class="hero-banner py-5">
+    <div class="container">
+      <div class="row align-items-center g-4">
+        <div class="col-lg-8">
+          <h1 class="display-5 fw-bold mb-3">Системи резервного живлення та сонячної енергетики для бізнесу й дому</h1>
+          <p class="lead mb-4">
+            Проєктування, монтаж, енергоаудит і сервісний супровід. Оформіть звернення онлайн та відстежуйте його опрацювання за регламентованим строком у робочих днях.
+          </p>
+          <div class="d-flex flex-wrap gap-2">
+            <a href="#inquiry-section" class="btn btn-accent btn-lg">Подати звернення</a>
+            <a href="/status" class="btn btn-outline-light btn-lg">Перевірити статус заявки</a>
+          </div>
+        </div>
+        <div class="col-lg-4">
+          <div class="card text-dark shadow-sm">
+            <div class="card-body">
+              <h2 class="h5 card-title fw-bold mb-2">Гарантований контроль строків (SLA)</h2>
+              <p class="card-text small mb-2">
+                Кожному зверненню автоматично присвоюється унікальний номер, код доступу та дата виконання за виробничим календарем (з урахуванням вихідних і свят).
+              </p>
+              <ul class="small mb-0 ps-3">
+                <li>Прозорий статус без дзвінків</li>
+                <li>Персональний відповідальний інженер</li>
+                <li>Фіксація історії рішень</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <main id="main-content" class="py-5">
+    <div class="container">
+      <!-- Каталог послуг -->
+      <section aria-labelledby="catalog-heading" class="mb-5">
+        <div class="d-flex flex-column flex-md-row justify-content-between align-items-md-end gap-3 mb-4">
+          <div>
+            <h2 id="catalog-heading" class="h3 fw-bold mb-1">Каталог послуг</h2>
+            <p class="text-muted mb-0">Оберіть напрям робіт та регламентований строк опрацювання звернення.</p>
+          </div>
+          <div class="row g-2 w-100 w-md-auto" style="max-width: 520px;">
+            <div class="col-sm-7">
+              <label for="service-search" class="form-label visually-hidden">Пошук послуги</label>
+              <input id="service-search" type="search" class="form-control" placeholder="Пошук за назвою або описом...">
+            </div>
+            <div class="col-sm-5">
+              <label for="service-category" class="form-label visually-hidden">Фільтр за категорією</label>
+              <select id="service-category" class="form-select">
+                <option value="">Усі категорії</option>
+                <option value="Аудит">Аудит</option>
+                <option value="Проєктування">Проєктування</option>
+                <option value="Монтаж">Монтаж</option>
+                <option value="Обслуговування">Обслуговування</option>
+              </select>
+            </div>
+          </div>
+        </div>
+
+        <div id="services-status" role="status" aria-live="polite" class="mb-3 text-muted small">Завантаження каталогу...</div>
+        <div id="services-grid" class="row g-3"></div>
+      </section>
+
+      <!-- Форма звернення -->
+      <section id="inquiry-section" aria-labelledby="inquiry-heading" class="pt-3">
+        <div class="row g-4">
+          <div class="col-lg-7">
+            <div class="card shadow-sm">
+              <div class="card-body p-4">
+                <h2 id="inquiry-heading" class="h4 fw-bold mb-3">Оформлення звернення</h2>
+                <form id="inquiry-form" novalidate>
+                  <div class="mb-3">
+                    <label for="inq-service" class="form-label">Послуга <span class="text-danger">*</span></label>
+                    <select id="inq-service" name="serviceId" class="form-select" required>
+                      <option value="">Оберіть послугу...</option>
+                    </select>
+                    <div class="invalid-feedback" data-error-for="serviceId"></div>
+                  </div>
+
+                  <div class="row g-3 mb-3">
+                    <div class="col-md-6">
+                      <label for="inq-name" class="form-label">Контактна особа <span class="text-danger">*</span></label>
+                      <input id="inq-name" name="contactName" type="text" class="form-control" maxlength="100" required
+                        placeholder="Наприклад, Іван Петренко">
+                      <div class="invalid-feedback" data-error-for="contactName"></div>
+                    </div>
+                    <div class="col-md-6">
+                      <label for="inq-company" class="form-label">Компанія (необов’язково)</label>
+                      <input id="inq-company" name="companyName" type="text" class="form-control" maxlength="120"
+                        placeholder="ТОВ «Приклад»">
+                      <div class="invalid-feedback" data-error-for="companyName"></div>
+                    </div>
+                  </div>
+
+                  <div class="row g-3 mb-3">
+                    <div class="col-md-6">
+                      <label for="inq-phone" class="form-label">Телефон <span class="text-danger">*</span></label>
+                      <input id="inq-phone" name="phone" type="tel" class="form-control" required
+                        placeholder="+380671234567">
+                      <div class="invalid-feedback" data-error-for="phone"></div>
+                    </div>
+                    <div class="col-md-6">
+                      <label for="inq-email" class="form-label">Електронна пошта <span class="text-danger">*</span></label>
+                      <input id="inq-email" name="email" type="email" class="form-control" maxlength="120" required
+                        placeholder="name@company.ua">
+                      <div class="invalid-feedback" data-error-for="email"></div>
+                    </div>
+                  </div>
+
+                  <div class="mb-3">
+                    <label for="inq-subject" class="form-label">Тема звернення <span class="text-danger">*</span></label>
+                    <input id="inq-subject" name="subject" type="text" class="form-control" maxlength="160" required
+                      placeholder="Коротко опишіть задачу або об’єкт">
+                    <div class="invalid-feedback" data-error-for="subject"></div>
+                  </div>
+
+                  <div class="mb-3">
+                    <label for="inq-message" class="form-label">Детальний опис <span class="text-danger">*</span></label>
+                    <textarea id="inq-message" name="message" class="form-control" rows="4" maxlength="2000" required
+                      placeholder="Вкажіть параметри об’єкта, бажані строки чи симптоми несправності (від 10 символів)..."></textarea>
+                    <div class="invalid-feedback" data-error-for="message"></div>
+                  </div>
+
+                  <div id="form-alert" class="alert d-none" role="alert"></div>
+
+                  <button id="submit-inquiry-btn" type="submit" class="btn btn-accent btn-lg w-100">
+                    Надіслати звернення
+                  </button>
+                </form>
+              </div>
+            </div>
+          </div>
+
+          <div class="col-lg-5">
+            <div id="confirmation-card" class="card border-success shadow-sm d-none" aria-live="polite">
+              <div class="card-header text-bg-success fw-bold">Звернення успішно прийнято</div>
+              <div class="card-body">
+                <p class="mb-2">Збережіть ці реквізити для перевірки статусу опрацювання:</p>
+                <dl class="row mb-3">
+                  <dt class="col-5">Номер заявки:</dt>
+                  <dd class="col-7 fw-bold" id="conf-ticket"></dd>
+                  <dt class="col-5">Код доступу:</dt>
+                  <dd class="col-7 fw-bold font-monospace" id="conf-code"></dd>
+                  <dt class="col-5">Послуга:</dt>
+                  <dd class="col-7" id="conf-service"></dd>
+                  <dt class="col-5">Строк SLA:</dt>
+                  <dd class="col-7" id="conf-sla"></dd>
+                  <dt class="col-5">Дедлайн до:</dt>
+                  <dd class="col-7 fw-semibold" id="conf-due"></dd>
+                </dl>
+                <a id="conf-status-link" href="/status" class="btn btn-outline-success w-100">
+                  Перейти до перевірки статусу
+                </a>
+              </div>
+            </div>
+
+            <div class="card shadow-sm mt-3">
+              <div class="card-body">
+                <h3 class="h5 fw-bold mb-2">Як опрацьовується звернення?</h3>
+                <ol class="small mb-0 ps-3">
+                  <li class="mb-1"><strong>Нова:</strong> реєстрація, присвоєння номера, коду доступу та дедлайну у робочих днях.</li>
+                  <li class="mb-1"><strong>В роботі:</strong> призначення відповідального інженера або менеджера, підготовка рішення.</li>
+                  <li class="mb-1"><strong>Завершена / Відхилена:</strong> надання фінальної відповіді або обґрунтованої причини відмови.</li>
+                </ol>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+    </div>
+  </main>
+
+  <footer class="bg-dark text-light py-3 mt-auto">
+    <div class="container d-flex flex-column flex-sm-row justify-content-between align-items-center small gap-2">
+      <span>© 2026 ТОВ «ВольтаПро Сервіс» — демонстраційна навчальна система</span>
+      <span>Одеса, вул. Енергетична, 14 | Тел.: +380 (48) 700-15-20</span>
+    </div>
+  </footer>
+
+  <script src="/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+  <script type="module" src="/js/public.js"></script>
+</body>
+</html>

@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Перевірка статусу заявки — ВольтаПро Сервіс</title>
+  <link rel="stylesheet" href="/vendor/bootstrap/css/bootstrap.min.css">
+  <link rel="stylesheet" href="/css/styles.css">
+</head>
+<body>
+  <a class="skip-link" href="#main-content">Перейти до основного вмісту</a>
+
+  <header>
+    <nav class="navbar navbar-expand-lg navbar-dark navbar-voltapro" aria-label="Головна навігація">
+      <div class="container">
+        <a class="navbar-brand fw-bold" href="/">ВольтаПро Сервіс</a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#mainNav"
+          aria-controls="mainNav" aria-expanded="false" aria-label="Відкрити меню">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="mainNav">
+          <ul class="navbar-nav ms-auto gap-lg-2">
+            <li class="nav-item"><a class="nav-link" href="/">Послуги та звернення</a></li>
+            <li class="nav-item"><a class="nav-link active" aria-current="page" href="/status">Перевірити заявку</a></li>
+            <li class="nav-item"><a class="nav-link" href="/manager">Кабінет менеджера</a></li>
+          </ul>
+        </div>
+      </div>
+    </nav>
+  </header>
+
+  <main id="main-content" class="py-5">
+    <div class="container" style="max-width: 860px;">
+      <h1 class="h3 fw-bold mb-2">Перевірка статусу звернення</h1>
+      <p class="text-muted mb-4">
+        Введіть номер заявки та 6-символьний код доступу, отриманий при реєстрації звернення.
+      </p>
+
+      <div class="card shadow-sm mb-4">
+        <div class="card-body p-4">
+          <form id="lookup-form" class="row g-3 align-items-end" novalidate>
+            <div class="col-md-5">
+              <label for="ticket-number" class="form-label">Номер заявки</label>
+              <input id="ticket-number" name="ticketNumber" type="text" class="form-control text-uppercase"
+                placeholder="VP-2026-0001" required>
+            </div>
+            <div class="col-md-4">
+              <label for="access-code" class="form-label">Код доступу</label>
+              <input id="access-code" name="accessCode" type="text" class="form-control text-uppercase font-monospace"
+                maxlength="6" placeholder="DEMO01" required>
+            </div>
+            <div class="col-md-3 d-grid">
+              <button id="lookup-btn" type="submit" class="btn btn-accent">Знайти заявку</button>
+            </div>
+          </form>
+
+          <div class="mt-3 d-flex flex-wrap align-items-center gap-2 small text-muted">
+            <span>Приклад для демонстрації:</span>
+            <button id="fill-demo-btn" type="button" class="btn btn-sm btn-outline-secondary">
+              VP-2026-0001 / DEMO01
+            </button>
+          </div>
+
+          <div id="lookup-alert" class="alert d-none mt-3 mb-0" role="alert"></div>
+        </div>
+      </div>
+
+      <section id="result-card" class="card shadow-sm d-none" aria-live="polite">
+        <div class="card-header d-flex flex-wrap justify-content-between align-items-center gap-2">
+          <div>
+            <span class="fw-bold fs-5" id="res-ticket"></span>
+            <span class="text-muted ms-2" id="res-service"></span>
+          </div>
+          <div class="d-flex flex-wrap gap-2" id="res-badges"></div>
+        </div>
+        <div class="card-body p-4">
+          <h2 class="h5 fw-bold mb-3" id="res-subject"></h2>
+
+          <div class="row g-3 mb-4 small">
+            <div class="col-sm-6 col-md-4">
+              <div class="text-muted">Відповідальний менеджер</div>
+              <div class="fw-semibold" id="res-assignee"></div>
+            </div>
+            <div class="col-sm-6 col-md-4">
+              <div class="text-muted">Регламентний дедлайн (SLA)</div>
+              <div class="fw-semibold" id="res-due"></div>
+            </div>
+            <div class="col-sm-6 col-md-4">
+              <div class="text-muted">Дата реєстрації</div>
+              <div class="fw-semibold" id="res-created"></div>
+            </div>
+          </div>
+
+          <div id="res-rejection-box" class="alert alert-secondary d-none">
+            <strong>Причина відхилення:</strong> <span id="res-rejection"></span>
+          </div>
+
+          <div id="res-public-response-box" class="alert alert-info d-none">
+            <strong>Офіційна відповідь менеджера:</strong>
+            <div class="mt-1" id="res-public-response"></div>
+          </div>
+
+          <h3 class="h6 fw-bold mt-4 mb-3">Публічна історія опрацювання</h3>
+          <div id="res-history" class="vstack gap-2"></div>
+        </div>
+      </section>
+    </div>
+  </main>
+
+  <footer class="bg-dark text-light py-3 mt-auto">
+    <div class="container d-flex flex-column flex-sm-row justify-content-between align-items-center small gap-2">
+      <span>© 2026 ТОВ «ВольтаПро Сервіс» — демонстраційна навчальна система</span>
+      <span>Одеса, вул. Енергетична, 14 | Тел.: +380 (48) 700-15-20</span>
+    </div>
+  </footer>
+
+  <script src="/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+  <script type="module" src="/js/status.js"></script>
+</body>
+</html>
