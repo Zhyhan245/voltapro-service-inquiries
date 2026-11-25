@@ -1,0 +1,124 @@
+openapi: 3.1.0
+info:
+  title: ВольтаПро Сервіс API
+  version: 1.0.0
+  description: REST API корпоративного сайту із керуванням зверненнями та контролем SLA.
+servers:
+  - url: http://localhost:3000/api
+paths:
+  /health:
+    get:
+      summary: Перевірка працездатності сервера та БД
+      responses:
+        "200":
+          description: Сервер і SQLite доступні
+        "503":
+          description: База даних недоступна
+  /services:
+    get:
+      summary: Каталог послуг підприємства
+      parameters:
+        - name: search
+          in: query
+          schema: { type: string }
+        - name: category
+          in: query
+          schema: { type: string, enum: [Аудит, Проєктування, Монтаж, Обслуговування] }
+      responses:
+        "200":
+          description: Список активних послуг
+  /inquiries:
+    post:
+      summary: Реєстрація нового звернення клієнтом
+      responses:
+        "201":
+          description: Звернення створено, повернено ticketNumber, accessCode, dueDate
+        "200":
+          description: Повторний запит із тим самим idempotencyKey
+        "400":
+          description: Помилка валідації полів (RFC 9457)
+        "404":
+          description: Послугу не знайдено
+  /inquiries/lookup:
+    get:
+      summary: Публічний пошук заявки за номером та кодом доступу
+      parameters:
+        - name: ticketNumber
+          in: query
+          required: true
+          schema: { type: string }
+        - name: accessCode
+          in: query
+          required: true
+          schema: { type: string }
+      responses:
+        "200":
+          description: Публічні відомості та публічна історія (без внутрішніх приміток)
+        "400":
+          description: Некоректний формат номера або коду
+        "404":
+          description: Заявку не знайдено або код доступу не збігається
+  /auth/login:
+    post:
+      summary: Вхід працівника в кабінет менеджера
+      responses:
+        "200":
+          description: Успішна автентифікація, встановлено HttpOnly cookie
+        "401":
+          description: Неправильна пошта або пароль
+  /auth/logout:
+    post:
+      summary: Завершення сесії працівника
+      responses:
+        "204":
+          description: Сесію завершено
+  /manager/inquiries:
+    get:
+      summary: Робочий список звернень менеджера з фільтрами й пагінацією
+      responses:
+        "200":
+          description: Сторінка звернень із оцінкою SLA
+        "401":
+          description: Необхідна автентифікація
+  /manager/inquiries/{id}:
+    get:
+      summary: Детальна картка звернення з повною історією
+      responses:
+        "200":
+          description: Повна картка звернення включно з внутрішніми примітками
+        "403":
+          description: Доступ до чужої заявки заборонено
+        "404":
+          description: Звернення не знайдено
+  /manager/inquiries/{id}/assign:
+    patch:
+      summary: Призначення відповідального працівника
+      responses:
+        "200":
+          description: Відповідального оновлено
+        "403":
+          description: Менеджер не може призначати іншого працівника
+  /manager/inquiries/{id}/status:
+    patch:
+      summary: Зміна статусу звернення
+      responses:
+        "200":
+          description: Статус оновлено
+        "400":
+          description: Відсутня обов'язкова причина відхилення
+        "403":
+          description: Заборонено повертати завершену заявку без ролі SENIOR_MANAGER
+        "409":
+          description: Неприпустимий перехід статусу
+  /manager/inquiries/{id}/comments:
+    post:
+      summary: Додавання публічної відповіді або внутрішньої примітки
+      responses:
+        "201":
+          description: Запис додано до історії
+  /manager/reports/overdue:
+    get:
+      summary: Звіт про прострочені заявки та дедлайни SLA
+      responses:
+        "200":
+          description: Агрегована статистика, перелік прострочених заявок і календар винятків
