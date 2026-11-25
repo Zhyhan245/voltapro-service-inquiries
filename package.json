@@ -1,0 +1,34 @@
+{
+  "name": "voltapro-service-inquiries",
+  "version": "1.0.0",
+  "description": "Корпоративний сайт із керуванням зверненнями «ВольтаПро Сервіс» (Варіант 5)",
+  "main": "src/server.js",
+  "scripts": {
+    "start": "node src/server.js",
+    "migrate": "node src/db/migrate.js",
+    "seed": "node src/db/seed.js",
+    "test": "node --test tests/*.test.js",
+    "test:unit": "node --test tests/unit.test.js",
+    "test:integration": "node --test tests/integration.test.js",
+    "test:volume": "node tests/volume-test.js",
+    "test:load": "node tests/load-test.js"
+  },
+  "keywords": [
+    "corporate-site",
+    "inquiries",
+    "express",
+    "sqlite",
+    "bootstrap"
+  ],
+  "author": "Жиган Дар'я Олександрівна",
+  "license": "MIT",
+  "dependencies": {
+    "bootstrap": "^5.3.9",
+    "cookie-parser": "^1.4.7",
+    "express": "^4.21.2",
+    "helmet": "^8.0.0"
+  },
+  "devDependencies": {
+    "playwright-core": "^1.65.1"
+  }
+}
